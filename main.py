@@ -13,7 +13,7 @@ model = genai.GenerativeModel("gemini-2.5-flash")
 
 BOT_USERNAME = "@Eshmat_AI_bot"
 
-SYSTEM_PROMPT = 
+SYSTEM_PROMPT = """
 You are Eshmat AI, a smart Telegram assistant.
 
 Rules:
@@ -22,6 +22,7 @@ Rules:
 - Never stay silent
 - Answer clearly and helpfully
 - Reply in user's language
+"""
 
 def should_reply(update: Update):
     msg = update.message

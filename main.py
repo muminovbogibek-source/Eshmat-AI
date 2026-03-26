@@ -1,8 +1,7 @@
 from telegram import Update
 from telegram.ext import ApplicationBuilder, MessageHandler, filters, ContextTypes
 import google.generativeai as genai
-import nest_asyncio
-nest_asyncio.apply()
+import asyncio
 
 # 🔑 TOKENLAR
 TELEGRAM_TOKEN = "8701140143:AAEwCRP87hD-nIfL4Mf43KGCVLJVNhkbDaY"
@@ -24,6 +23,7 @@ Rules:
 - Answer clearly and helpfully
 - Reply in user's language
 """
+
 def should_reply(update: Update):
     msg = update.message
 
@@ -39,30 +39,26 @@ def should_reply(update: Update):
 
     return False
 
-
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     await update.message.chat.send_action("typing")
 
     user_text = update.message.text.replace(BOT_USERNAME, "").strip()
 
     try:
         prompt = SYSTEM_PROMPT + "\nUser: " + user_text
-
         response = model.generate_content(prompt)
         reply = response.text
-
     except Exception as e:
         print("ERROR:", e)
-        reply = "Xatolik keyinroq urinib ko‘ring"
+        reply = "Xatolik, keyinroq urinib ko‘ring"
 
     await update.message.reply_text(reply)
 
-import asyncio
-
 async def main():
-  app = ApplicationBuilder().token("8701140143:AAEwCRP87hD-nIfL4Mf43KGCVLJVNhkbDaY").build()
-  app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-  print("Gemini bot ishga tushdi 🚀")
-  await app.run_polling()
-await main()
+    app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    print("Gemini bot ishga tushdi ")
+    await app.run_polling()
+
+if __name__ == "__main__":
+    asyncio.run(main())

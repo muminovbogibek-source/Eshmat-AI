@@ -5,7 +5,7 @@ import asyncio
 
 # 🔑 TOKENLAR
 TELEGRAM_TOKEN = "8701140143:AAEwCRP87hD-nIfL4Mf43KGCVLJVNhkbDaY"
-GEMINI_API_KEY = "AIzaSyDsIfZYRcCpn8G6bU4IddZQrLAsfp1fxCQ"
+GEMINI_API_KEY = "AIzaSyB5vgAOArL_CCCyPIGT_BC0yXBBdwmM1X4"
 
 # Gemini sozlash
 genai.configure(api_key=GEMINI_API_KEY)
